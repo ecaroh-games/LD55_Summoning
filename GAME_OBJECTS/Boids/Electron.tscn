@@ -1,0 +1,150 @@
+[gd_scene load_steps=16 format=3 uid="uid://dac4ahk3pen78"]
+
+[ext_resource type="Texture2D" uid="uid://cgmhibsqh7tqv" path="res://ASSETS/SPRITES/Electron.png" id="1_cf3cl"]
+[ext_resource type="Script" path="res://GAME_OBJECTS/Boids/Electron.gd" id="1_fl5k3"]
+[ext_resource type="AudioStream" uid="uid://by1jxama6lliy" path="res://ASSETS/SFX/summon1.ogg" id="3_eerut"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3upd1"]
+atlas = ExtResource("1_cf3cl")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o74g2"]
+atlas = ExtResource("1_cf3cl")
+region = Rect2(36, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdfjs"]
+atlas = ExtResource("1_cf3cl")
+region = Rect2(72, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n82he"]
+atlas = ExtResource("1_cf3cl")
+region = Rect2(108, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_beae6"]
+atlas = ExtResource("1_cf3cl")
+region = Rect2(180, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqrbq"]
+atlas = ExtResource("1_cf3cl")
+region = Rect2(216, 0, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1klmp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3upd1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o74g2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdfjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n82he")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_beae6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqrbq")
+}],
+"loop": true,
+"name": &"negative",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fokbr"]
+radius = 10.9
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7mfcb"]
+random_pitch = 1.23
+streams_count = 1
+stream_0/stream = ExtResource("3_eerut")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ka1nd"]
+random_pitch = 1.07
+streams_count = 1
+stream_0/stream = ExtResource("3_eerut")
+stream_0/weight = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6oq8y"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xyf2f"]
+radius = 23.0
+
+[node name="Electron" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_fl5k3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1klmp")
+animation = &"negative"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fokbr")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_7mfcb")
+volume_db = -6.0
+pitch_scale = 2.78
+max_distance = 666.0
+attenuation = 1.23
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ka1nd")
+pitch_scale = 1.4
+max_distance = 666.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 12.23
+one_shot = true
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -18.0
+offset_top = 15.0
+offset_right = 22.0
+offset_bottom = 38.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+text = "1"
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+offset_left = -18.0
+offset_top = 36.0
+offset_right = 22.0
+offset_bottom = 59.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+text = "1"
+
+[node name="AreaCharge" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaCharge"]
+shape = SubResource("CircleShape2D_6oq8y")
+
+[node name="AreaAttack" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4096
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaAttack"]
+shape = SubResource("CircleShape2D_xyf2f")
+debug_color = Color(0.972549, 0, 0.45098, 0.419608)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="AreaCharge" to="." method="_on_area_charge_body_entered"]

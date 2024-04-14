@@ -1,0 +1,105 @@
+[gd_scene load_steps=14 format=3 uid="uid://cbxhilav7of28"]
+
+[ext_resource type="Texture2D" uid="uid://dkdqixo477nrn" path="res://ASSETS/SPRITES/Tower.png" id="4_rmf8i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jix8q"]
+atlas = ExtResource("4_rmf8i")
+region = Rect2(180, 0, 36, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4iqn"]
+atlas = ExtResource("4_rmf8i")
+region = Rect2(216, 0, 36, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akp60"]
+atlas = ExtResource("4_rmf8i")
+region = Rect2(252, 0, 36, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mn4gv"]
+atlas = ExtResource("4_rmf8i")
+region = Rect2(0, 0, 36, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dil4f"]
+atlas = ExtResource("4_rmf8i")
+region = Rect2(0, 0, 36, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa7af"]
+atlas = ExtResource("4_rmf8i")
+region = Rect2(36, 0, 36, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jl4ma"]
+atlas = ExtResource("4_rmf8i")
+region = Rect2(72, 0, 36, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8i8p"]
+atlas = ExtResource("4_rmf8i")
+region = Rect2(108, 0, 36, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lgp6"]
+atlas = ExtResource("4_rmf8i")
+region = Rect2(144, 0, 36, 132)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c4kdi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jix8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4iqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akp60")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mn4gv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dil4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa7af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jl4ma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8i8p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lgp6")
+}],
+"loop": false,
+"name": &"open",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_glkqk"]
+radius = 25.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_irgkc"]
+polygon = PackedVector2Array(-23, 7, -17, 12, -11, 15, 11, 15, 18, 12, 23, 7, 17, -1, 0, -4, -17, -1)
+
+[node name="Tower" type="StaticBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_c4kdi")
+animation = &"attack"
+autoplay = "idle"
+offset = Vector2(0, -50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_glkqk")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_irgkc")

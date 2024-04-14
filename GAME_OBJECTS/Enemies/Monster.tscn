@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://uwlgvrgmdw33"]
+
+[ext_resource type="Texture2D" uid="uid://drp0bqims2j3s" path="res://ASSETS/SPRITES/Monster.png" id="1_fb7w4"]
+[ext_resource type="Script" path="res://GAME_OBJECTS/Enemies/Monster.gd" id="1_lgk8r"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_78ij3"]
+radius = 6.0
+height = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxvix"]
+atlas = ExtResource("1_fb7w4")
+region = Rect2(0, 0, 26, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrwwr"]
+atlas = ExtResource("1_fb7w4")
+region = Rect2(26, 0, 26, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cndnr"]
+atlas = ExtResource("1_fb7w4")
+region = Rect2(52, 0, 26, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtyss"]
+atlas = ExtResource("1_fb7w4")
+region = Rect2(78, 0, 26, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wqp2m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kxvix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrwwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cndnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtyss")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[node name="Monster" type="CharacterBody2D"]
+collision_layer = 4096
+collision_mask = 4355
+motion_mode = 1
+script = ExtResource("1_lgk8r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_78ij3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_wqp2m")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.776585
+offset = Vector2(0, -10)

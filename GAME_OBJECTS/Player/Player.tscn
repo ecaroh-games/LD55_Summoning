@@ -1,0 +1,143 @@
+[gd_scene load_steps=20 format=3 uid="uid://b4wa6gpb008ee"]
+
+[ext_resource type="Script" path="res://GAME_OBJECTS/Player/Player.gd" id="1_ds0we"]
+[ext_resource type="Texture2D" uid="uid://6ut58rxtxk38" path="res://ASSETS/SPRITES/Ecaroh_Mech-idle.png" id="1_w88rg"]
+[ext_resource type="Texture2D" uid="uid://dvk5yyt3cf2rx" path="res://ASSETS/SPRITES/Ecaroh_Mech-walk.png" id="2_27rpa"]
+[ext_resource type="Texture2D" uid="uid://cc7p1wmsilawt" path="res://ASSETS/LIGHTS/light2.png" id="2_ejxsk"]
+[ext_resource type="Script" path="res://STATES/STATEMACHINE.gd" id="4_4g4mp"]
+[ext_resource type="Script" path="res://STATES/PlayerIdle.gd" id="5_x08dj"]
+[ext_resource type="Script" path="res://STATES/PlayerWalk.gd" id="6_jiver"]
+[ext_resource type="AudioStream" uid="uid://cn4lg3xhwvop3" path="res://ASSETS/SFX/track_lo.ogg" id="7_ohuxk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2ofe"]
+atlas = ExtResource("1_w88rg")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eur2r"]
+atlas = ExtResource("1_w88rg")
+region = Rect2(36, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkfiw"]
+atlas = ExtResource("1_w88rg")
+region = Rect2(72, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0rtb"]
+atlas = ExtResource("1_w88rg")
+region = Rect2(108, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eyuia"]
+atlas = ExtResource("2_27rpa")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o778b"]
+atlas = ExtResource("2_27rpa")
+region = Rect2(36, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnlh8"]
+atlas = ExtResource("2_27rpa")
+region = Rect2(72, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ectar"]
+atlas = ExtResource("2_27rpa")
+region = Rect2(108, 0, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rl2mi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2ofe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eur2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkfiw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0rtb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eyuia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o778b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnlh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ectar")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xli04"]
+radius = 12.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ynirk"]
+random_pitch = 1.11
+streams_count = 1
+stream_0/stream = ExtResource("7_ohuxk")
+stream_0/weight = 1.0
+
+[node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
+scale = Vector2(2, 2)
+collision_layer = 256
+motion_mode = 1
+script = ExtResource("1_ds0we")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(1, 0.69)
+range_layer_min = -100
+range_item_cull_mask = 32
+shadow_enabled = true
+texture = ExtResource("2_ejxsk")
+texture_scale = 3.0
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 0
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_rl2mi")
+animation = &"idle"
+offset = Vector2(0, -11)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xli04")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "initial_state")]
+script = ExtResource("4_4g4mp")
+player = NodePath("..")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("5_x08dj")
+player = NodePath("../..")
+
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("6_jiver")
+player = NodePath("../..")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/Walk"]
+stream = SubResource("AudioStreamRandomizer_ynirk")
+volume_db = -6.9
+pitch_scale = 1.69
+max_polyphony = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine" method="_on_anim_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="StateMachine" method="_on_anim_frame_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

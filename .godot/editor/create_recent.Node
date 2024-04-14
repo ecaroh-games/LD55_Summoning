@@ -1,0 +1,14 @@
+AudioStreamPlayer2D
+Timer
+GPUParticles2D
+CPUParticles2D
+PointLight2D
+Sprite2D
+CollisionShape2D
+Area2D
+Node2D
+AnimatedSprite2D
+StaticBody2D
+CharacterBody2D
+LightOccluder2D
+AudioStreamPlayer

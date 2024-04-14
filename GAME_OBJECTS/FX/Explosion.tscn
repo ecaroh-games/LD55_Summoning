@@ -1,0 +1,104 @@
+[gd_scene load_steps=15 format=3 uid="uid://dfgg7blqr3678"]
+
+[ext_resource type="Script" path="res://GAME_OBJECTS/FX/Explosion.gd" id="1_c0cuq"]
+[ext_resource type="Texture2D" uid="uid://cc7p1wmsilawt" path="res://ASSETS/LIGHTS/light2.png" id="2_bsppk"]
+[ext_resource type="Texture2D" uid="uid://bogymawlpr7bj" path="res://ASSETS/LIGHTS/light1.png" id="2_v0vk8"]
+[ext_resource type="Texture2D" uid="uid://dounf2ifd8bor" path="res://ASSETS/SPRITES/lightning.png" id="4_k87ph"]
+[ext_resource type="AudioStream" uid="uid://4i18jdd5yxix" path="res://ASSETS/SFX/explode1.ogg" id="5_6vqhq"]
+[ext_resource type="AudioStream" uid="uid://ch2pwvyx2ee2t" path="res://ASSETS/SFX/static1.ogg" id="5_q3oe8"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mfxm2"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 9
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_7hdyj"]
+_data = [Vector2(0.012987, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wq3ds"]
+curve = SubResource("Curve_7hdyj")
+
+[sub_resource type="Curve" id="Curve_k683r"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.233766, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lap5j"]
+curve = SubResource("Curve_k683r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kw6q3"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 12.0
+angle_min = -720.0
+angle_max = 720.0
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, 0.23, 0.23)
+spread = 180.0
+flatness = 1.0
+initial_velocity_max = 224.81
+radial_velocity_max = 155.04
+radial_velocity_curve = SubResource("CurveTexture_wq3ds")
+gravity = Vector3(0, 0, 0)
+damping_min = 79.442
+damping_max = 100.0
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_lap5j")
+color = Color(39.645, 1, 1, 1)
+anim_speed_min = 1.0
+anim_speed_max = 2.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_irup0"]
+random_pitch = 1.23
+streams_count = 1
+stream_0/stream = ExtResource("5_q3oe8")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_i0ao5"]
+random_pitch = 1.07
+streams_count = 1
+stream_0/stream = ExtResource("5_6vqhq")
+stream_0/weight = 1.0
+
+[node name="Explosion" type="Node2D"]
+script = ExtResource("1_c0cuq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -100
+z_as_relative = false
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("2_v0vk8")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 6.51
+range_layer_min = -100
+range_item_cull_mask = 32
+shadow_enabled = true
+texture = ExtResource("2_bsppk")
+texture_scale = 3.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_mfxm2")
+amount = 123
+process_material = SubResource("ParticleProcessMaterial_kw6q3")
+texture = ExtResource("4_k87ph")
+lifetime = 0.5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.23
+one_shot = true
+autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_irup0")
+pitch_scale = 0.69
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_i0ao5")
+volume_db = 6.199
+pitch_scale = 1.45
+
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

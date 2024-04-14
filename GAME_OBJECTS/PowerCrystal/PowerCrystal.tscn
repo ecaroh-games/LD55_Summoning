@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3 uid="uid://ck0ji5qx43i5m"]
+
+[ext_resource type="Script" path="res://GAME_OBJECTS/PowerCrystal/PowerCrystal.gd" id="1_74iv4"]
+[ext_resource type="Texture2D" uid="uid://c34cewvfho4wr" path="res://ASSETS/SPRITES/PowerCrystal.png" id="1_faqwm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74o30"]
+atlas = ExtResource("1_faqwm")
+region = Rect2(288, 0, 72, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_foctj"]
+atlas = ExtResource("1_faqwm")
+region = Rect2(504, 0, 72, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1k72"]
+atlas = ExtResource("1_faqwm")
+region = Rect2(432, 0, 72, 72)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5tnrf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74o30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_foctj")
+}],
+"loop": true,
+"name": &"powered",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1k72")
+}],
+"loop": true,
+"name": &"unpowered",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1mbcc"]
+radius = 18.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dd4wn"]
+polygon = PackedVector2Array(-14.5, 2.5, -16.5, -5, -0.5, -16.5, 8.5, -14.5, 17, -4, 15, 2.5, 0, 7)
+
+[node name="PowerCrystal" type="StaticBody2D"]
+y_sort_enabled = true
+scale = Vector2(2, 2)
+script = ExtResource("1_74iv4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_5tnrf")
+animation = &"powered"
+offset = Vector2(0, -19.785)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+shape = SubResource("CircleShape2D_1mbcc")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="ElectronTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_dd4wn")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ElectronTimer" to="." method="_on_electron_timer_timeout"]
