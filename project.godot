@@ -14,7 +14,7 @@ config/name="09 Summoning"
 run/main_scene="res://SCENES/GAME.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 run/max_fps=60
-config/icon="res://icon.svg"
+config/icon="res://Icons/elec_icon.png"
 
 [autoload]
 

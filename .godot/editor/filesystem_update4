@@ -1,11 +1,1 @@
 res://default_bus_layout.tres
-res://SCENES/GAME.tscn
-res://GAME_OBJECTS/Player/Player.tscn
-res://GAME_OBJECTS/PowerCrystal/PowerCrystal.tscn
-res://GAME_OBJECTS/FX/Spark.tscn
-res://GAME_OBJECTS/Tower/Tower.tscn
-res://GAME_OBJECTS/Enemies/SummonSigil.tscn
-res://GAME_OBJECTS/Enemies/Monster.tscn
-res://GAME_OBJECTS/Helper/Helper.tscn
-res://GAME_OBJECTS/FX/Explosion.tscn
-res://GAME_OBJECTS/Boids/Electron.tscn
