@@ -64,16 +64,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 23.0
+"speed": 12.0
 }]
 
 [node name="Spark" type="Node2D"]
+z_index = 100
 script = ExtResource("1_6q5qy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_71sj6")
 autoplay = "default"
-frame_progress = 0.22363
+frame_progress = 0.611703
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

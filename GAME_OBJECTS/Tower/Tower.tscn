@@ -1,6 +1,63 @@
-[gd_scene load_steps=14 format=3 uid="uid://cbxhilav7of28"]
+[gd_scene load_steps=34 format=3 uid="uid://cbxhilav7of28"]
 
+[ext_resource type="Script" path="res://GAME_OBJECTS/Tower/Tower.gd" id="1_l3jxl"]
+[ext_resource type="Texture2D" uid="uid://c8isbodujcq16" path="res://ASSETS/SPRITES/Sigil.png" id="2_531el"]
+[ext_resource type="AudioStream" uid="uid://spwwega630kj" path="res://ASSETS/SFX/charge1.ogg" id="3_0ud31"]
 [ext_resource type="Texture2D" uid="uid://dkdqixo477nrn" path="res://ASSETS/SPRITES/Tower.png" id="4_rmf8i"]
+[ext_resource type="AudioStream" uid="uid://55vx64166n5g" path="res://ASSETS/SFX/beep4.ogg" id="4_rtfdd"]
+[ext_resource type="AudioStream" uid="uid://jxta4ty0a8ng" path="res://ASSETS/SFX/charge2.ogg" id="5_4jw8s"]
+[ext_resource type="AudioStream" uid="uid://bu75xvydqbedm" path="res://ASSETS/SFX/crumble2.ogg" id="6_lqfbl"]
+[ext_resource type="AudioStream" uid="uid://dgvlwpajbwb1x" path="res://ASSETS/SFX/deny3.ogg" id="7_uknkc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxv5a"]
+atlas = ExtResource("2_531el")
+region = Rect2(0, 0, 132, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7cia"]
+atlas = ExtResource("2_531el")
+region = Rect2(132, 0, 132, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_725dn"]
+atlas = ExtResource("2_531el")
+region = Rect2(264, 0, 132, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvpvg"]
+atlas = ExtResource("2_531el")
+region = Rect2(396, 0, 132, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6umvs"]
+atlas = ExtResource("2_531el")
+region = Rect2(528, 0, 132, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_regcd"]
+atlas = ExtResource("2_531el")
+region = Rect2(660, 0, 132, 132)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3crcr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxv5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7cia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_725dn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvpvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6umvs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_regcd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jix8q"]
 atlas = ExtResource("4_rmf8i")
@@ -14,11 +71,19 @@ region = Rect2(216, 0, 36, 132)
 atlas = ExtResource("4_rmf8i")
 region = Rect2(252, 0, 36, 132)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mn4gv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpvkq"]
 atlas = ExtResource("4_rmf8i")
-region = Rect2(0, 0, 36, 132)
+region = Rect2(108, 0, 36, 132)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dil4f"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_35tjs"]
+atlas = ExtResource("4_rmf8i")
+region = Rect2(72, 0, 36, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gmcf"]
+atlas = ExtResource("4_rmf8i")
+region = Rect2(36, 0, 36, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mn4gv"]
 atlas = ExtResource("4_rmf8i")
 region = Rect2(0, 0, 36, 132)
 
@@ -56,6 +121,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_hpvkq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35tjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gmcf")
+}],
+"loop": false,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_mn4gv")
 }],
 "loop": true,
@@ -63,9 +142,6 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dil4f")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xa7af")
 }, {
@@ -89,12 +165,45 @@ radius = 25.0
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_irgkc"]
 polygon = PackedVector2Array(-23, 7, -17, 12, -11, 15, 11, 15, 18, 12, 23, 7, 17, -1, 0, -4, -17, -1)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n5qi3"]
+random_pitch = 1.07
+streams_count = 1
+stream_0/stream = ExtResource("3_0ud31")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0a8jv"]
+random_pitch = 1.07
+streams_count = 1
+stream_0/stream = ExtResource("4_rtfdd")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_c5x3e"]
+random_pitch = 1.04
+streams_count = 1
+stream_0/stream = ExtResource("5_4jw8s")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_f4sx0"]
+random_pitch = 1.04
+streams_count = 1
+stream_0/stream = ExtResource("6_lqfbl")
+stream_0/weight = 1.0
+
 [node name="Tower" type="StaticBody2D"]
+script = ExtResource("1_l3jxl")
+
+[node name="AnimChargeSigil" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.184314)
+z_index = -100
+scale = Vector2(1.333, 0.92)
+sprite_frames = SubResource("SpriteFrames_3crcr")
+autoplay = "default"
+frame_progress = 0.609677
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_c4kdi")
-animation = &"attack"
+animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -50)
 
@@ -103,3 +212,43 @@ shape = SubResource("CircleShape2D_glkqk")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_irgkc")
+
+[node name="sfx_charge" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_n5qi3")
+pitch_scale = 2.45
+max_distance = 666.0
+
+[node name="sfx_fully_charged" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_0a8jv")
+volume_db = -6.0
+
+[node name="TimerClose" type="Timer" parent="."]
+wait_time = 2.23
+one_shot = true
+
+[node name="TimerFlash" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="sfx_open" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_c5x3e")
+volume_db = -13.086
+pitch_scale = 0.82
+max_distance = 1223.0
+attenuation = 1.44
+
+[node name="sfx_close" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_f4sx0")
+pitch_scale = 0.62
+max_distance = 666.0
+
+[node name="sfx_stop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_uknkc")
+volume_db = 3.0
+pitch_scale = 0.4
+max_distance = 1223.0
+attenuation = 1.44
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
+[connection signal="timeout" from="TimerClose" to="." method="_on_timer_close_timeout"]
+[connection signal="timeout" from="TimerFlash" to="." method="_on_timer_flash_timeout"]

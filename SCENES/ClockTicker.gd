@@ -1,4 +1,4 @@
-extends AudioStreamPlayer
+class_name Music extends AudioStreamPlayer
 
 # very muffled low with some drum
 var setting1 = [
@@ -17,26 +17,26 @@ var setting3 = [
 
 # bass
 var setting4 = [
-	23, -23, -23, -23, -23, -23
+	23, -23, -23, 0, 0, -23
 ]
 
-func _process(delta):
-	if Input.is_action_just_pressed("debug1"):
-		set_EQ(1)
-		pitch_scale = 0.666
-		set_pitch(0.444)
-	if Input.is_action_just_pressed("debug2"):
-		set_EQ(2)
-		pitch_scale = 0.555
-		set_pitch(1.23)
-	if Input.is_action_just_pressed("debug3"):
-		set_EQ(3)
-		pitch_scale = 1.23
-		set_pitch(0.666)
-	if Input.is_action_just_pressed("debug4"):
-		set_EQ(4)
-		pitch_scale = 1.33
-		set_pitch(0.33)
+#func _process(delta):
+	#if Input.is_action_just_pressed("debug1"):
+		#set_EQ(1)
+		#pitch_scale = 0.666
+		#set_pitch(0.444)
+	#if Input.is_action_just_pressed("debug2"):
+		#set_EQ(2)
+		#pitch_scale = 0.555
+		#set_pitch(1.23)
+	#if Input.is_action_just_pressed("debug3"):
+		#set_EQ(3)
+		#pitch_scale = 0.777
+		#set_pitch(2.666)
+	#if Input.is_action_just_pressed("debug4"):
+		#set_EQ(4)
+		#pitch_scale = 0.888
+		#set_pitch(0.420)
 
 func _ready():
 	set_EQ(1)

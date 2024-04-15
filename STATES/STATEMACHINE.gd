@@ -1,8 +1,8 @@
 @icon("res://ICONS/glass-ball.png")
-extends Node
-class_name StateMachine
+class_name StateMachine extends Node
 
-@export var player: CharacterBody2D
+
+@export var player: Player
 
 @export var initial_state : State
 
@@ -25,7 +25,7 @@ func _process(delta) -> void:
 		current_state.Update(delta)
 
 func _physics_process(delta) -> void:
-	if current_state:
+	if current_state and !player.died:
 		current_state.Physics_Update(delta)
 
 func on_child_transition(state, new_state_name) -> void:

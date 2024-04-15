@@ -25,5 +25,5 @@ func _on_tween_finished():
 
 func _on_timer_timeout():
 	#print("remove")
-	#queue_free()
+	queue_free()
 	pass # Replace with function body.

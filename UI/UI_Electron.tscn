@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://0tjrgmee3iyr"]
+
+[ext_resource type="Script" path="res://UI/UI_Electron.gd" id="1_0mhky"]
+[ext_resource type="Texture2D" uid="uid://cty3mil28sl11" path="res://ASSETS/SPRITES/UI_charge.png" id="1_daepx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_743sg"]
+atlas = ExtResource("1_daepx")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hscke"]
+atlas = ExtResource("1_daepx")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_edyry"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_743sg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hscke")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="UiElectron" type="Node2D"]
+script = ExtResource("1_0mhky")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_edyry")

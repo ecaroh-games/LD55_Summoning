@@ -10,6 +10,7 @@ func Physics_Update(delta):
 
 	var d = input_key(Input)
 	if d != Vector2.ZERO:
+		TutorialTracker.distance_traveled += delta * 4.20
 		player.velocity += d.normalized() * player.accel_ratio()
 	else:
 		player.friction(delta)

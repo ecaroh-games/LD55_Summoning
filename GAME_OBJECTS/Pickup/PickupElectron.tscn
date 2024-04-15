@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvn3erqq2bvll"]
+
+[ext_resource type="Script" path="res://GAME_OBJECTS/Pickup/PickupElectron.gd" id="1_4otjy"]
+[ext_resource type="Texture2D" uid="uid://cty3mil28sl11" path="res://ASSETS/SPRITES/UI_charge.png" id="2_sswu0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvlkn"]
+atlas = ExtResource("2_sswu0")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_40ekx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvlkn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PickupElectron" type="Node2D"]
+script = ExtResource("1_4otjy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_40ekx")

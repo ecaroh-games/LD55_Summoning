@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://ck0ji5qx43i5m"]
+[gd_scene load_steps=17 format=3 uid="uid://ck0ji5qx43i5m"]
 
 [ext_resource type="Script" path="res://GAME_OBJECTS/PowerCrystal/PowerCrystal.gd" id="1_74iv4"]
 [ext_resource type="Texture2D" uid="uid://c34cewvfho4wr" path="res://ASSETS/SPRITES/PowerCrystal.png" id="1_faqwm"]
+[ext_resource type="Texture2D" uid="uid://bogymawlpr7bj" path="res://ASSETS/LIGHTS/light1.png" id="2_h3vhe"]
+[ext_resource type="AudioStream" uid="uid://cm686su6fxsu1" path="res://ASSETS/SFX/click.ogg" id="4_3jt6m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_74o30"]
 atlas = ExtResource("1_faqwm")
@@ -43,10 +45,115 @@ radius = 18.0
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dd4wn"]
 polygon = PackedVector2Array(-14.5, 2.5, -16.5, -5, -0.5, -16.5, 8.5, -14.5, 17, -4, 15, 2.5, 0, 7)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bkoqv"]
+random_pitch = 1.07
+streams_count = 1
+stream_0/stream = ExtResource("4_3jt6m")
+stream_0/weight = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e8nar"]
+radius = 35.0143
+
+[sub_resource type="Animation" id="Animation_7d4sw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0.69)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0901961)]
+}
+
+[sub_resource type="Animation" id="Animation_vknqb"]
+resource_name = "glow"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 0.87055, 1),
+"update": 0,
+"values": [Vector2(1.00813, 0.695625), Vector2(1.043, 0.72), Vector2(1, 0.69)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0901961), Color(0.439216, 1, 0.2, 0.196078), Color(1, 1, 1, 0.0901961)]
+}
+
+[sub_resource type="Animation" id="Animation_qxjw6"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(1.13, 0.78), Vector2(1, 0.69)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0901961)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mx20d"]
+_data = {
+"RESET": SubResource("Animation_7d4sw"),
+"glow": SubResource("Animation_vknqb"),
+"idle": SubResource("Animation_qxjw6")
+}
+
 [node name="PowerCrystal" type="StaticBody2D"]
 y_sort_enabled = true
 scale = Vector2(2, 2)
+collision_mask = 5
 script = ExtResource("1_74iv4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.0901961)
+z_index = -100
+scale = Vector2(1, 0.69)
+texture = ExtResource("2_h3vhe")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
@@ -58,16 +165,36 @@ offset = Vector2(0, -19.785)
 y_sort_enabled = true
 shape = SubResource("CircleShape2D_1mbcc")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 1.5
+[node name="TimerUnpower" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
-[node name="ElectronTimer" type="Timer" parent="."]
-wait_time = 0.25
+[node name="TimerCharge" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_dd4wn")
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="ElectronTimer" to="." method="_on_electron_timer_timeout"]
+[node name="sfx_charge" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_bkoqv")
+pitch_scale = 1.23
+max_distance = 555.0
+attenuation = 1.69
+
+[node name="AreaHelper" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 260
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaHelper"]
+shape = SubResource("CircleShape2D_e8nar")
+debug_color = Color(0.956863, 0, 0.533333, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mx20d")
+}
+
+[connection signal="timeout" from="TimerCharge" to="." method="_on_timer_charge_timeout"]
+[connection signal="area_entered" from="AreaHelper" to="." method="_on_area_helper_area_entered"]
+[connection signal="body_entered" from="AreaHelper" to="." method="_on_area_helper_body_entered"]

@@ -1,0 +1,1 @@
+class_name ElectronCharged extends State_Electron

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnt0bg1kjmh46"]
+
+[ext_resource type="Script" path="res://UTILITIES/HitboxHurtbox/Hitbox_Attack.gd" id="1_2bpuu"]
+
+[node name="Hitbox" type="Area2D"]
+collision_layer = 4096
+collision_mask = 1024
+script = ExtResource("1_2bpuu")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

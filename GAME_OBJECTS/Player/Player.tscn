@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b4wa6gpb008ee"]
+[gd_scene load_steps=34 format=3 uid="uid://b4wa6gpb008ee"]
 
 [ext_resource type="Script" path="res://GAME_OBJECTS/Player/Player.gd" id="1_ds0we"]
 [ext_resource type="Texture2D" uid="uid://6ut58rxtxk38" path="res://ASSETS/SPRITES/Ecaroh_Mech-idle.png" id="1_w88rg"]
@@ -8,6 +8,13 @@
 [ext_resource type="Script" path="res://STATES/PlayerIdle.gd" id="5_x08dj"]
 [ext_resource type="Script" path="res://STATES/PlayerWalk.gd" id="6_jiver"]
 [ext_resource type="AudioStream" uid="uid://cn4lg3xhwvop3" path="res://ASSETS/SFX/track_lo.ogg" id="7_ohuxk"]
+[ext_resource type="AudioStream" uid="uid://dgvlwpajbwb1x" path="res://ASSETS/SFX/deny3.ogg" id="9_dsnh3"]
+[ext_resource type="FontFile" uid="uid://dlca76ns24wy5" path="res://ASSETS/FONTS/Retro Banker.ttf" id="10_avs26"]
+[ext_resource type="Texture2D" uid="uid://cty3mil28sl11" path="res://ASSETS/SPRITES/UI_charge.png" id="11_exl3d"]
+[ext_resource type="PackedScene" uid="uid://dwnxyybho2foh" path="res://UTILITIES/FlashFrames/flash_frames.tscn" id="12_4romh"]
+[ext_resource type="AudioStream" uid="uid://bbf1mwvod48i2" path="res://ASSETS/SFX/deny2.ogg" id="13_eb64d"]
+[ext_resource type="AudioStream" uid="uid://dfimo0o8uenjn" path="res://ASSETS/SFX/oww.ogg" id="14_prger"]
+[ext_resource type="AudioStream" uid="uid://d65ae3al7coa" path="res://ASSETS/SFX/beep1.ogg" id="15_na2od"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2ofe"]
 atlas = ExtResource("1_w88rg")
@@ -87,6 +94,52 @@ streams_count = 1
 stream_0/stream = ExtResource("7_ohuxk")
 stream_0/weight = 1.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_sd67f"]
+random_pitch = 1.02
+streams_count = 1
+stream_0/stream = ExtResource("9_dsnh3")
+stream_0/weight = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlybi"]
+atlas = ExtResource("11_exl3d")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6v2hh"]
+atlas = ExtResource("11_exl3d")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_73j2v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rlybi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6v2hh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jlxc0"]
+radius = 16.5303
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_q7nux"]
+streams_count = 3
+stream_0/stream = ExtResource("9_dsnh3")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("13_eb64d")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("14_prger")
+stream_2/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_grsp1"]
+random_pitch = 1.05
+streams_count = 1
+stream_0/stream = ExtResource("15_na2od")
+stream_0/weight = 1.0
+
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 scale = Vector2(2, 2)
@@ -138,6 +191,50 @@ max_polyphony = 2
 wait_time = 2.0
 autostart = true
 
+[node name="sfx_deny" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_sd67f")
+pitch_scale = 0.53
+
+[node name="PlusOne" type="Node2D" parent="."]
+position = Vector2(0, -33.5)
+
+[node name="Label" type="Label" parent="PlusOne"]
+offset_top = -4.0
+offset_right = 40.0
+offset_bottom = 19.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("10_avs26")
+theme_override_font_sizes/font_size = 10
+text = "+1"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlusOne"]
+position = Vector2(-8, 0)
+sprite_frames = SubResource("SpriteFrames_73j2v")
+autoplay = "default"
+frame_progress = 0.0150286
+
+[node name="FlashFrames" parent="." node_paths=PackedStringArray("flashSprite") instance=ExtResource("12_4romh")]
+flashSprite = NodePath("../AnimatedSprite2D")
+
+[node name="HurtArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
+shape = SubResource("CircleShape2D_jlxc0")
+debug_color = Color(0.901961, 0.2, 0.588235, 0.207843)
+
+[node name="sfx_hurt" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_q7nux")
+volume_db = -6.9
+pitch_scale = 2.23
+
+[node name="sfx_hurt2" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_grsp1")
+volume_db = -20.179
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine" method="_on_anim_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="StateMachine" method="_on_anim_frame_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]

@@ -1,7 +1,10 @@
-res://Icons
 C:/jake/GameDev/PROJECTS/09 Summoning/export
+res://SCENES
 res://ASSETS/SPRITES
+res://ASSETS/FONTS
+res://UTILITIES/Dialogue
+res://UI
+res://Icons
 res://GAME_OBJECTS/Enemies
 res://GAME_OBJECTS/Tower
 res://GAME_OBJECTS/Player
-res://SCENES

@@ -1,0 +1,33 @@
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://b2hw60u768vp5"]
+
+[ext_resource type="Texture2D" uid="uid://c462fojrnsija" path="res://ASSETS/TILES/Tiles.png" id="1_3tqll"]
+[ext_resource type="Texture2D" uid="uid://c3v0ul0nppi1f" path="res://ASSETS/TILES/NormalMap.png" id="2_v5tgc"]
+[ext_resource type="Texture2D" uid="uid://cfg0eq2t4wbhq" path="res://ASSETS/TILES/SpecularMap.png" id="3_gmtph"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_xj2wc"]
+diffuse_texture = ExtResource("1_3tqll")
+normal_texture = ExtResource("2_v5tgc")
+specular_texture = ExtResource("3_gmtph")
+specular_shininess = 0.21
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ms5nw"]
+texture = SubResource("CanvasTexture_xj2wc")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_ms5nw")

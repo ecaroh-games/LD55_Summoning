@@ -1,0 +1,103 @@
+[gd_scene load_steps=7 format=3 uid="uid://bq42b5c4gftbp"]
+
+[ext_resource type="Script" path="res://UTILITIES/Dialogue/dialogue.gd" id="1_eumrg"]
+[ext_resource type="FontFile" uid="uid://dlca76ns24wy5" path="res://ASSETS/FONTS/Retro Banker.ttf" id="2_a00i2"]
+[ext_resource type="AudioStream" uid="uid://cm686su6fxsu1" path="res://ASSETS/SFX/click.ogg" id="3_bmf4y"]
+[ext_resource type="AudioStream" uid="uid://cdrdjf452amx2" path="res://ASSETS/SFX/deny1.ogg" id="5_7yb3j"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_oxxev"]
+random_pitch = 1.09
+streams_count = 1
+stream_0/stream = ExtResource("3_bmf4y")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nby36"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("5_7yb3j")
+stream_0/weight = 1.0
+
+[node name="Dialogue" type="Node2D"]
+script = ExtResource("1_eumrg")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+clip_contents = false
+offset_left = 68.0
+offset_top = 21.65
+offset_right = 725.0
+offset_bottom = 128.65
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 23
+theme_override_fonts/normal_font = ExtResource("2_a00i2")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Hello world"
+scroll_active = false
+
+[node name="TextTutorial" type="RichTextLabel" parent="."]
+clip_contents = false
+offset_left = 68.0
+offset_top = 349.0
+offset_right = 725.0
+offset_bottom = 456.0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/normal_font = ExtResource("2_a00i2")
+theme_override_font_sizes/normal_font_size = 23
+bbcode_enabled = true
+text = "Hello world"
+scroll_active = false
+
+[node name="TextWin" type="RichTextLabel" parent="."]
+clip_contents = false
+offset_left = 15.0
+offset_top = 10.0
+offset_right = 590.0
+offset_bottom = 117.0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/normal_font = ExtResource("2_a00i2")
+theme_override_font_sizes/normal_font_size = 23
+bbcode_enabled = true
+text = "Hello world"
+scroll_active = false
+
+[node name="TextSkip" type="RichTextLabel" parent="."]
+modulate = Color(1, 1, 1, 0.403922)
+clip_contents = false
+offset_left = 514.0
+offset_top = 428.0
+offset_right = 1089.0
+offset_bottom = 535.0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/normal_font = ExtResource("2_a00i2")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "Press ENTER to Skip Tutorial"
+scroll_active = false
+
+[node name="sfx_type" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_oxxev")
+volume_db = -7.652
+pitch_scale = 2.3
+max_polyphony = 3
+
+[node name="sfx_skip" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_nby36")
+volume_db = -4.0
+pitch_scale = 1.23
+
+[node name="writeTimer" type="Timer" parent="."]
+
+[node name="eraseTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="delayTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="writeTimer" to="." method="_on_write_timer_timeout"]

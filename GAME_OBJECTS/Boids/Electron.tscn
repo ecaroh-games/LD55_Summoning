@@ -1,47 +1,120 @@
-[gd_scene load_steps=16 format=3 uid="uid://dac4ahk3pen78"]
+[gd_scene load_steps=32 format=3 uid="uid://2584kqp6hldl"]
 
-[ext_resource type="Texture2D" uid="uid://cgmhibsqh7tqv" path="res://ASSETS/SPRITES/Electron.png" id="1_cf3cl"]
-[ext_resource type="Script" path="res://GAME_OBJECTS/Boids/Electron.gd" id="1_mxbr3"]
-[ext_resource type="AudioStream" uid="uid://by1jxama6lliy" path="res://ASSETS/SFX/summon1.ogg" id="3_eerut"]
+[ext_resource type="Script" path="res://GAME_OBJECTS/Boids/Electron.gd" id="1_vxhhu"]
+[ext_resource type="Texture2D" uid="uid://ctej22mykjwds" path="res://ASSETS/SPRITES/Electron_gold.png" id="2_d113y"]
+[ext_resource type="Texture2D" uid="uid://dew3fc7jeo6pe" path="res://ASSETS/SPRITES/Electron_gold_spawn.png" id="3_jxhd6"]
+[ext_resource type="AudioStream" uid="uid://by1jxama6lliy" path="res://ASSETS/SFX/summon1.ogg" id="4_4w5il"]
+[ext_resource type="Texture2D" uid="uid://cgmhibsqh7tqv" path="res://ASSETS/SPRITES/Electron.png" id="4_sbp0l"]
+[ext_resource type="AudioStream" uid="uid://bmq7sjo4f5316" path="res://ASSETS/SFX/summon2.ogg" id="5_y5htw"]
+[ext_resource type="AudioStream" uid="uid://jxta4ty0a8ng" path="res://ASSETS/SFX/charge2.ogg" id="6_6k1cq"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3upd1"]
-atlas = ExtResource("1_cf3cl")
+[sub_resource type="CircleShape2D" id="CircleShape2D_a25hi"]
+radius = 10.9
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qer26"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fwg4s"]
+radius = 27.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stkpi"]
+radius = 48.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rq3m"]
+atlas = ExtResource("2_d113y")
 region = Rect2(0, 0, 36, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_o74g2"]
-atlas = ExtResource("1_cf3cl")
+[sub_resource type="AtlasTexture" id="AtlasTexture_85t25"]
+atlas = ExtResource("2_d113y")
 region = Rect2(36, 0, 36, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qdfjs"]
-atlas = ExtResource("1_cf3cl")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vkc6"]
+atlas = ExtResource("2_d113y")
 region = Rect2(72, 0, 36, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n82he"]
-atlas = ExtResource("1_cf3cl")
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4n0q"]
+atlas = ExtResource("2_d113y")
 region = Rect2(108, 0, 36, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_beae6"]
-atlas = ExtResource("1_cf3cl")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmtps"]
+atlas = ExtResource("4_sbp0l")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oogr7"]
+atlas = ExtResource("4_sbp0l")
+region = Rect2(36, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66ybu"]
+atlas = ExtResource("4_sbp0l")
+region = Rect2(72, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6uc3"]
+atlas = ExtResource("4_sbp0l")
+region = Rect2(108, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds62h"]
+atlas = ExtResource("4_sbp0l")
 region = Rect2(180, 0, 36, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wqrbq"]
-atlas = ExtResource("1_cf3cl")
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fls2"]
+atlas = ExtResource("4_sbp0l")
 region = Rect2(216, 0, 36, 36)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_1klmp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0b3t"]
+atlas = ExtResource("3_jxhd6")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nocp"]
+atlas = ExtResource("3_jxhd6")
+region = Rect2(36, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rr3j"]
+atlas = ExtResource("3_jxhd6")
+region = Rect2(72, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3dou"]
+atlas = ExtResource("3_jxhd6")
+region = Rect2(108, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpg2b"]
+atlas = ExtResource("3_jxhd6")
+region = Rect2(144, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xea27"]
+atlas = ExtResource("3_jxhd6")
+region = Rect2(180, 0, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_on3qu"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3upd1")
+"texture": SubResource("AtlasTexture_5rq3m")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_o74g2")
+"texture": SubResource("AtlasTexture_85t25")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qdfjs")
+"texture": SubResource("AtlasTexture_0vkc6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n82he")
+"texture": SubResource("AtlasTexture_d4n0q")
+}],
+"loop": true,
+"name": &"gold",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmtps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oogr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66ybu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6uc3")
 }],
 "loop": true,
 "name": &"idle",
@@ -49,102 +122,117 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_beae6")
+"texture": SubResource("AtlasTexture_ds62h")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wqrbq")
+"texture": SubResource("AtlasTexture_4fls2")
 }],
 "loop": true,
 "name": &"negative",
 "speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0b3t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nocp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rr3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3dou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpg2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xea27")
+}],
+"loop": false,
+"name": &"spawn",
+"speed": 23.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fokbr"]
-radius = 10.9
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_pa0qj"]
+random_pitch = 1.04
+streams_count = 1
+stream_0/stream = ExtResource("4_4w5il")
+stream_0/weight = 1.0
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7mfcb"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x2suf"]
 random_pitch = 1.23
 streams_count = 1
-stream_0/stream = ExtResource("3_eerut")
+stream_0/stream = ExtResource("5_y5htw")
 stream_0/weight = 1.0
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ka1nd"]
-random_pitch = 1.07
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xtup6"]
 streams_count = 1
-stream_0/stream = ExtResource("3_eerut")
+stream_0/stream = ExtResource("6_6k1cq")
 stream_0/weight = 1.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_6oq8y"]
-radius = 18.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_xyf2f"]
-radius = 23.0
 
 [node name="Electron" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_layer = 2
-collision_mask = 7
-script = ExtResource("1_mxbr3")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_1klmp")
-animation = &"negative"
-autoplay = "idle"
+collision_mask = 263
+script = ExtResource("1_vxhhu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_fokbr")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_7mfcb")
-volume_db = -6.0
-pitch_scale = 2.78
-max_distance = 666.0
-attenuation = 1.23
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_ka1nd")
-pitch_scale = 1.4
-max_distance = 666.0
+shape = SubResource("CircleShape2D_a25hi")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 12.23
+wait_time = 2.23
 one_shot = true
 autostart = true
-
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -18.0
-offset_top = 15.0
-offset_right = 22.0
-offset_bottom = 38.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 7
-text = "1"
-
-[node name="Label2" type="Label" parent="."]
-visible = false
-offset_left = -18.0
-offset_top = 36.0
-offset_right = 22.0
-offset_bottom = 59.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 7
-text = "1"
 
 [node name="AreaCharge" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaCharge"]
-shape = SubResource("CircleShape2D_6oq8y")
+shape = SubResource("CircleShape2D_qer26")
 
 [node name="AreaAttack" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4096
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaAttack"]
-shape = SubResource("CircleShape2D_xyf2f")
-debug_color = Color(0.972549, 0, 0.45098, 0.419608)
+shape = SubResource("CircleShape2D_fwg4s")
+debug_color = Color(0.972549, 0, 0.45098, 0.309804)
+
+[node name="AreaAOE" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4096
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaAOE"]
+shape = SubResource("CircleShape2D_stkpi")
+debug_color = Color(0.972549, 0, 0.45098, 0.12549)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_on3qu")
+animation = &"negative"
+
+[node name="sfx_summon" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_pa0qj")
+volume_db = -6.0
+pitch_scale = 2.23
+max_distance = 666.0
+attenuation = 1.23
+
+[node name="sfx_summon_charged" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_x2suf")
+volume_db = -18.0
+pitch_scale = 1.69
+max_distance = 666.0
+attenuation = 1.23
+
+[node name="sfx_chargeup" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_xtup6")
+volume_db = -13.497
+pitch_scale = 1.53
+max_distance = 420.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="AreaCharge" to="." method="_on_area_charge_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
