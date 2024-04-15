@@ -1,3 +1,3 @@
 Ecaroh's Mecharoh
 
-[itchio link here]
+https://ecaroh.itch.io/ecarohs-mecharoh
